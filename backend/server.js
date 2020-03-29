@@ -7,7 +7,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use(express.static('public')); // relative path of client-side code
+app.use(express.static('frontend/public'));
 app.get('/', (req, res) => {
     res.sendFile('index.html', {root: __dirname});
 });
