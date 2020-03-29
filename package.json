@@ -1,0 +1,24 @@
+{
+  "name": "tracker",
+  "version": "1.0.0",
+  "description": "NodeJs app that track delivery",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gmo88/Tracker.git"
+  },
+  "author": "Maxim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gmo88/Tracker/issues"
+  },
+  "homepage": "https://github.com/gmo88/Tracker#readme"
+}
