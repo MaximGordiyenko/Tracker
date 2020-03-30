@@ -1,5 +1,6 @@
-.idea
-coverage/
-.idea/*
+.idea/
+node_modules/
+.nvmrc
 .env
-node_modules/*
+.gitignore
+yarn.lock
