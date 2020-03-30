@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login or Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+    <link href="./index.css" rel="stylesheet">
+    <link href="./normalize.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="app-container">
+    <div class="login-form">
+        <h1>Login Form</h1>
+        <form action="login" method="POST">
+            <input name="username" placeholder="Username" required type="text">
+            <input name="password" placeholder="Password" required type="password">
+            <div class="roles">
+                <span>
+                <input id="sign-admin" name="role" type="radio" value="admin">
+                <label for="sign-admin">admin</label>
+                </span>
+
+                <span>
+                <input id="sign-customer" name="role" type="radio" value="customer">
+                <label for="sign-customer">customer</label>
+                </span>
+
+                <span>
+                <input id="sign-driver" name="role" type="radio" value="driver">
+                <label for="sign-driver">driver</label>
+                </span>
+            </div>
+            <input type="submit">
+        </form>
+    </div>
+
+
+
+    <div class="form-container">
+
+        <form action="/signup" id='register-form' method='post'>
+            <label>Username:
+                <input placeholder="Username" required type="text">
+            </label>
+            <label>Email:
+                <input placeholder="Email" required type="email">
+            </label>
+            <label>Password:
+                <input placeholder="Password" required type="password">
+            </label>
+            <label>Re Password:
+                <input placeholder="Re Password" required type="password">
+            </label>
+            <div class="roles">
+                <input id="sign-admin" name="role" type="radio" value="admin">
+                <label for="sign-admin">admin</label>
+
+                <input id="sign-customer" name="role" type="radio" value="customer">
+                <label for="sign-customer">customer</label>
+
+                <input id="sign-driver" name="role" type="radio" value="driver">
+                <label for="sign-driver">driver</label>
+            </div>
+            <button type='submit'>Register</button>
+            <label for='register-form'>Already Member ? Sign In</label>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
