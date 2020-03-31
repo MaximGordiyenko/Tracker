@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import dotenv from 'dotenv';
 import session from 'express-session'
-import User from '../models/users';
+import User from './models/users';
 
 const MongoStore = require('connect-mongo')(session); // FIXME : try to change to import
 
