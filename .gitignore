@@ -1,6 +1,6 @@
 .idea/
 node_modules/
+coverage/
 .nvmrc
 .env
 .gitignore
-yarn.lock
