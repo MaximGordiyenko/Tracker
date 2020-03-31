@@ -21,5 +21,8 @@ module.exports = {
     semi: ['error', 'always'],
     'no-unused-vars': ['error', { 'args': 'none' }],
     'no-multi-spaces': 'error',
+    'eol-last': ["error", "always"],
+    'newline-before-return': "error",
+    'no-multiple-empty-lines': ["error", { "max": 2, "maxBOF": 1}]
   },
 };
