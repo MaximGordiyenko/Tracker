@@ -10,17 +10,22 @@
 
 <body>
 <div class="app-container">
+    
     <div class="login-form">
         <h1>Login Form</h1>
         <form action="login" method="POST">
-            <input name="username" placeholder="Username" value="user@gmail.com" required type="text">
-            <input name="pass" placeholder="Password" value="aasd" required type="password">
+            <label>Email:
+                <input name="username" placeholder="Username" value="user@gmail.com" required type="text">
+            </label>
+            <label>Password:
+                <input name="pass" placeholder="Password" value="aasd" required type="password">
+            </label>
             <input type="submit">
         </form>
     </div>
 
-    <div class="form-container">
-
+    <div class="registration-form">
+        <h1>Registration Form</h1>
         <form action="/signup" id='register-form' method='post'>
             <label>Username:
                 <input placeholder="Username" name="username" value="user" required type="text">
