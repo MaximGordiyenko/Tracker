@@ -5,7 +5,12 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const app = express();
 
-dotenv.config();
+const envConfig = dotenv.config();
+if (envConfig.error) {
+    console.log('.env file does not loaded');
+    throw envConfig.error;
+}
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,9 +35,7 @@ mongoose.connect(process.env.MONGO_PATH, {
     useUnifiedTopology: true,
     useCreateIndex: true
 }).then((result) => {
-    console.log(`MongoDB connection`);
-    console.log(result.models.Admin);
-    console.log(result.models.Shipper);
-}).catch(error => console.log(error));
+    console.log(`MongoDB connection granted`);
+}).catch(error => console.log(`There is troubles with connecting to MongoDB ${error}`));
 
 app.listen(process.env.NODE_PORT, () => console.log(`tracker running on port: ${process.env.NODE_PORT}`));
