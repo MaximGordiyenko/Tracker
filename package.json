@@ -1,8 +1,8 @@
 {
   "name": "tracker",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
-    "server": "nodemon backend/server.js"
+    "server": "nodemon src/index.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
