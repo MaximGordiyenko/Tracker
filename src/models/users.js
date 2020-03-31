@@ -29,7 +29,7 @@ UserSchema.statics.authenticate = function(email, password, callback) {
   User.findOne({email: email})
     .exec(function(err, user) {
       if (err) {
-        return callback(err)
+        return callback(err);
       } else if (!user) {
         const err = new Error('User not found.');
         err.status = 401;
@@ -41,7 +41,7 @@ UserSchema.statics.authenticate = function(email, password, callback) {
         } else {
           return callback();
         }
-      })
+      });
     });
 };
 
@@ -54,7 +54,7 @@ UserSchema.pre('save', function(next) {
     }
     user.password = hash;
     next();
-  })
+  });
 });
 
 

@@ -1,14 +1,14 @@
-import express from 'express'
-import bodyParser from 'body-parser'
+import express from 'express';
+import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import cors from 'cors'
+import cors from 'cors';
 import dotenv from 'dotenv';
-import session from 'express-session'
+import session from 'express-session';
 import User from './models/users';
-
-const MongoStore = require('connect-mongo')(session); // FIXME : try to change to import
+import connectMongo from 'connect-mongo';
 
 const app = express();
+const MongoStore = connectMongo(session);
 
 const envConfig = dotenv.config();
 if (envConfig.error) {
@@ -31,7 +31,7 @@ mongoose.connect(process.env.MONGO_PATH, {
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('success connect')
+  console.log('success connect');
 });
 
 app.use(session({
@@ -86,7 +86,7 @@ app.post('/signup', (req, res, next) => {
 
     User.create(userData, function(error, user) {
       if (error) {
-        return res.status(400).send("mongoDB cannot create such user")
+        return res.status(400).send("mongoDB cannot create such user");
       } else {
         req.session.userId = user._id;
         return res.redirect('/profile'); // TODO: should be implemented
@@ -126,7 +126,7 @@ app.get('/profile', function(req, res, next) {
                   <b>username:</b>${username}<br>
                   <b>email:</b>${email}<br> 
                   <a type="button" href="/logout">Logout</a>
-                  `)
+                  `);
         }
       }
     });
