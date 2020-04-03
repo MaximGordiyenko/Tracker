@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>login or Registration</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
-    <link href="./index.css" rel="stylesheet">
-    <link href="./normalize.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>login or Registration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+  <link href="./index.css" rel="stylesheet">
+  <link href="./normalize.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="app-container">
-    
-    <div class="login-form">
-        <h1>Login Form</h1>
-        <form action="login" method="POST">
-            <label>Email:
-                <input name="username" placeholder="Username" value="user@gmail.com" required type="text">
-            </label>
-            <label>Password:
-                <input name="pass" placeholder="Password" value="aasd" required type="password">
-            </label>
-            <input type="submit">
-        </form>
-    </div>
-
-    <div class="registration-form">
-        <h1>Registration Form</h1>
-        <form action="/signup" id='register-form' method='post'>
-            <label>Username:
-                <input placeholder="Username" name="username" value="user" required type="text">
-            </label>
-            <label>Email:
-                <input placeholder="Email" name="email" value="user@gmail.com" required type="email">
-            </label>
-            <label>Password:
-                <input placeholder="Password" name="pass" value="aasd" required type="password">
-            </label>
-            <label>Re Password:
-                <input placeholder="Re Password" name="repass" value="aasd" required type="password">
-            </label>
-            <div class="roles">
-                <label for="sign-admin">admin</label>
-                <input id="sign-admin" name="role" type="radio" value="admin">
-
-                <label for="sign-customer">customer</label>
-                <input id="sign-customer" name="role" type="radio" value="customer" checked>
-
-                <label for="sign-driver">driver</label>
-                <input id="sign-driver" name="role" type="radio" value="driver">
-            </div>
-            <button type='submit'>Register</button>
-            <label for='register-form' class="register-label">Already Member ? Sign In</label>
-        </form>
-    </div>
+  
+  <div class="login-form">
+    <h1>Login Form</h1>
+    <form action="login" method="POST">
+      <label>Email:
+        <input name="username" placeholder="Username" value="user@gmail.com" required type="text">
+      </label>
+      <label>Password:
+        <input name="pass" placeholder="Password" value="aasd" required type="password">
+      </label>
+      <input type="submit">
+    </form>
+  </div>
+  
+  <div class="registration-form">
+    <h1>Registration Form</h1>
+    <form action="/signup" id='register-form' method='post'>
+      <label>Username:
+        <input placeholder="Username" name="username" value="user" required type="text">
+      </label>
+      <label>Email:
+        <input placeholder="Email" name="email" value="user@gmail.com" required type="email">
+      </label>
+      <label>Password:
+        <input placeholder="Password" name="pass" value="aasd" required type="password">
+      </label>
+      <label>Re Password:
+        <input placeholder="Re Password" name="repass" value="aasd" required type="password">
+      </label>
+      <div class="roles">
+        <label for="sign-admin">admin</label>
+        <input id="sign-admin" name="role" type="radio" value="admin">
+        
+        <label for="sign-customer">customer</label>
+        <input id="sign-customer" name="role" type="radio" value="customer" checked>
+        
+        <label for="sign-driver">driver</label>
+        <input id="sign-driver" name="role" type="radio" value="driver">
+      </div>
+      <button type='submit'>Register</button>
+      <label for='register-form' class="register-label">Already Member ? Sign In</label>
+    </form>
+  </div>
 </div>
 
 </body>
