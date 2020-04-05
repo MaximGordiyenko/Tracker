@@ -50,17 +50,14 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(express.static('src/view/public'));
-app.get('/', (req, res) => {
-  res.sendFile('index.html', {root: __dirname.concat('/view/public')});
-});
+app.use('/trucks', express.static('src/view/trucks'));
 
 app.post('/login', LoginController);
 app.post('/signup', SignupController);
 app.get('/logout', LogoutController);
 app.get('/profile', ProfileController);
-app.get('/trucks', TrucksController);
+app.post('/truck', TrucksController);
 app.get('/loads', LoadsController);
 
 app.listen(process.env.NODE_PORT, () => console.log(`tracker running on port: ${process.env.NODE_PORT}`));

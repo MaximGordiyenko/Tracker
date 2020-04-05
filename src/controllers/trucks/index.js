@@ -1,20 +1,41 @@
 const express = require('express');
 const router = express.Router();
-import Trucks from '../../models/trucks';
+import Truck from '../../models/trucks';
 
-router.post('/trucks', (req, res, next) => {
+router.post('/truck', (req, res, next) => {
+  const {createBy, assignTo, type, status} = req.body;
+
+  let checkStatus = status === undefined ? false : status;
+  console.log(createBy, assignTo, type, checkStatus);
+
+  if (createBy && assignTo && type && checkStatus) {
+    const trucks = {
+      creation_date: new Date,
+      created_by: createBy,
+      assigned_to: assignTo,
+      status: checkStatus,
+      type: type,
+    };
+
+    Truck.create(trucks, function (error, truck) {
+      if (error) {
+        return res.status(400).send("mongoDB cannot create such truck")
+      } else {
+        return res.status(200).send(truck);
+      }
+    });
+  }
+});
+
+router.get('/truck', (req, res, next) => {
 
 });
 
-router.get('/trucks', (req, res, next) => {
+router.put('/truck', (req, res, next) => {
 
 });
 
-router.put('/trucks', (req, res, next) => {
-
-});
-
-router.delete('/trucks', (req, res, next) => {
+router.delete('/truck', (req, res, next) => {
 
 });
 

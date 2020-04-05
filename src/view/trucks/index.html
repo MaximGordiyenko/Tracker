@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trucks</title>
+</head>
+<body>
+<div class="app-container">
+  <form action="/truck" id="trucker-form" method="post">
+    <label>Create by:
+      <input placeholder="Username" name="createBy" value="Max" required type="text">
+    </label>
+    <label>Assign to:
+      <input placeholder="Username" name="assignTo" value="Serj" required type="text">
+    </label>
+    
+    <label>Type:
+      <input placeholder="Type of delivery" name="type" value="cargo" required type="text">
+    </label>
+    
+    <div class="status">
+      <label for="sign-status">status</label>
+      <input id="sign-status" name="status" type="checkbox" value="true" checked>
+    </div>
+    <button type='submit'>Send</button>
+  </form>
+</div>
+</body>
+</html>

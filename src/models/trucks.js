@@ -1,14 +1,29 @@
 import mongoose from 'mongoose';
 
-const TrucksSchema = new mongoose.Schema({
-  trucks: {
-    creation_date: Date,
-    created_by: userId,
-    assigned_to: userId,
-    status: String,
+const TruckSchema = new mongoose.Schema({
+  creation_date: {
+    type: Date
+  },
+  created_by: {
     type: String,
-  }
+    required: true,
+    trim: true
+  },
+  assigned_to: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  status: {
+    type: Boolean,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+    trim: true
+  },
 });
 
-const Trucks = mongoose.model('Trucks', TrucksSchema);
-export default Trucks;
+const Truck = mongoose.model('Truck', TruckSchema);
+export default Truck;
