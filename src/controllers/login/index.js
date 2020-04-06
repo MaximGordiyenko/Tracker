@@ -8,9 +8,11 @@ router.post('/login', (req, res, next) => {
     if (error || !user) {
       const err = new Error('Wrong email or password.');
       err.status = 401;
+      
       return next(err);
     } else {
       req.session.userId = user._id;
+      
       return res.redirect('/profile');
     }
   });

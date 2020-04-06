@@ -34,7 +34,8 @@ router.post('/', (req, res, next) => {
 
 router.get('/', function (req, res, next) {
   const { created_by = null, assigned_to = null, type = null, status = null, _id = null, creation_date = null } = req.query;
-
+console.log(req.sessionID)
+  ///
   if (created_by === null && assigned_to === null && type === null && status === null && _id === null && creation_date === null) {
     // get all if no params
     return Truck.find({}, (err, data) => {

@@ -5,12 +5,14 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import {ProfileController} from './controllers/profile';
-import {LogoutController} from './controllers/logout';
-import {SignupController} from './controllers/signup';
-import {LoginController} from './controllers/login';
-import {TrucksController} from './controllers/trucks';
-import {LoadsController} from './controllers/loads';
+import { ProfileController } from './controllers/profile';
+import { LogoutController } from './controllers/logout';
+import { SignupController } from './controllers/signup';
+import { LoginController } from './controllers/login';
+import { TrucksController } from './controllers/trucks';
+import { LoadsController } from './controllers/loads';
+import User from './models/users';
+
 
 const app = express();
 const MongoStore = connectMongo(session);
@@ -22,14 +24,14 @@ if (envConfig.error) {
 }
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_PATH, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
 }).then((result) => {
   console.log(`MongoDB connection granted`);
 }).catch(error => console.log(`There is troubles with connecting to MongoDB ${error}`));
@@ -45,18 +47,31 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
-    mongooseConnection: db
-  })
+    mongooseConnection: db,
+  }),
 }));
 
-app.use(express.static('src/view/public'));
-// app.use('/trucks', express.static('src/view/trucks'));
+const roleLoggerMiddleWare = async (req, res, next) => {
+  try {
+    let user = await User.findById(req.session.userId);
+    console.log('current user role:', user.role || 'unauthorized');
+  } catch (err) {
+    console.log('current user role:', 'unauthorized');
 
-app.post('/login', LoginController);
-app.post('/signup', SignupController);
-app.get('/logout', LogoutController);
-app.get('/profile', ProfileController);
-app.use('/truck', TrucksController);
-app.use('/loads', LoadsController);
+  }
+  next();
+};
+//static content
+app.use(express.static('src/view/public'));
+
+//static for trucks
+app.use('/trucks', roleLoggerMiddleWare, express.static('src/view/trucks'));
+
+app.post('/login', roleLoggerMiddleWare, LoginController);
+app.post('/signup', roleLoggerMiddleWare, SignupController);
+app.get('/logout', roleLoggerMiddleWare, LogoutController);
+app.get('/profile', roleLoggerMiddleWare, ProfileController);
+app.use('/truck', roleLoggerMiddleWare, TrucksController);
+app.use('/loads', roleLoggerMiddleWare, LoadsController);
 
 app.listen(process.env.NODE_PORT, () => console.log(`tracker running on port: ${process.env.NODE_PORT}`));
