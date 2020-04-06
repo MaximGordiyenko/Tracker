@@ -10,7 +10,7 @@ router.post('/truck', (req, res, next) => {
 
   if (createBy && assignTo && type && checkStatus) {
     const trucks = {
-      creation_date: new Date,
+      creation_date: new Date().toLocaleDateString(),
       created_by: createBy,
       assigned_to: assignTo,
       status: checkStatus,
@@ -27,8 +27,16 @@ router.post('/truck', (req, res, next) => {
   }
 });
 
-router.get('/truck', (req, res, next) => {
-
+router.get('/truck', function (req, res, next) {
+  let name1 = req.query.name;
+  console.log(name1);
+  // Truck.find({}, function (err, docs) {
+  //   if (err) {
+  //     res.status(404).send(err);
+  //   } else {
+  //     res.json(docs);
+  //   }
+  // })
 });
 
 router.put('/truck', (req, res, next) => {

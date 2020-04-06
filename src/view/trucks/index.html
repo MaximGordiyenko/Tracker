@@ -3,27 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Trucks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+<!--  <link href="../public/index.css" rel="stylesheet">-->
+<!--  <link href="../public/normalize.css" rel="stylesheet">-->
 </head>
 <body>
 <div class="app-container">
-  <form action="/truck" id="trucker-form" method="post">
-    <label>Create by:
-      <input placeholder="Username" name="createBy" value="Max" required type="text">
-    </label>
-    <label>Assign to:
-      <input placeholder="Username" name="assignTo" value="Serj" required type="text">
-    </label>
-    
-    <label>Type:
-      <input placeholder="Type of delivery" name="type" value="cargo" required type="text">
-    </label>
-    
-    <div class="status">
-      <label for="sign-status">status</label>
-      <input id="sign-status" name="status" type="checkbox" value="true" checked>
-    </div>
-    <button type='submit'>Send</button>
-  </form>
+  
+  <div class="post_truck">
+    <h1>Create truck</h1>
+    <form action="/truck" method="post" id="post_truck-form">
+      <label>Create by:
+        <input placeholder="Username" name="createBy" value="Max" required type="text">
+      </label>
+      <label>Assign to:
+        <input placeholder="Username" name="assignTo" value="Serj" required type="text">
+      </label>
+      
+      <label>Type:
+        <input placeholder="Type of delivery" name="type" value="cargo" required type="text">
+      </label>
+      
+      <div class="status">
+        <label for="sign-status">status</label>
+        <input id="sign-status" name="status" type="checkbox" value="true" checked>
+      </div>
+      <button type='submit'>Send</button>
+    </form>
+  </div>
+  
+  <div class="get_truck">
+    <h1>Get truck</h1>
+    <form action="/truck" method="get" id="get_truck-form">
+      <label>Get creator:
+        <input placeholder="Username" name="creator" value="Max" required type="text">
+      </label>
+<!--      <label>Get assigner:-->
+<!--        <input placeholder="Username" name="assigner" value="Serj" required type="text">-->
+<!--      </label>-->
+      <button type='submit'>Send</button>
+    </form>
+  </div>
 </div>
 </body>
 </html>

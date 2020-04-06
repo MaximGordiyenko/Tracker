@@ -47,7 +47,9 @@ label {
 }
 
 .login-form h1,
-.registration-form h1 {
+.registration-form h1,
+.post_truck-form h1,
+.get_truck-form h1 {
     text-align: center;
     color: #4d4d4d;
     font-size: 24px;
