@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "1ea32bf6-dfb6-4e2a-8199-a4e8ad5f5be1",
+		"name": "max",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/truck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"truck"
+					],
+					"query": [
+						{
+							"key": "_id",
+							"value": "5e8a134e8c693e2694a3a285",
+							"disabled": true
+						},
+						{
+							"key": "created_by",
+							"value": "maxfax",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/truck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"truck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/truck?_id=5e8a134e8c693e2694a3a285",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"truck"
+					],
+					"query": [
+						{
+							"key": "_id",
+							"value": "5e8a134e8c693e2694a3a285"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read By Param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/truck?created_by=maxfax",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"truck"
+					],
+					"query": [
+						{
+							"key": "created_by",
+							"value": "maxfax"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"5e8a134e8c693e2694a3a285\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/truck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"truck"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

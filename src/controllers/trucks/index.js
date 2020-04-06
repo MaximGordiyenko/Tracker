@@ -72,8 +72,20 @@ router.put('/', (req, res, next) => {
 
 });
 
-router.delete('/', (req, res, next) => {
+router.delete('/', async (req, res, next) => {
+  const { _id } = req.body;
 
+  try {
+    // eslint-disable-next-line no-unused-vars
+    let itemToDelete = await Truck.findOneAndDelete({_id});
+    if(itemToDelete === null) {
+      return res.send({_id, deleted: 'false', reason: 'item not found'});
+    }
+    
+    return res.send({_id, deleted: 'true'});
+  } catch (error) {
+    return res.send({_id, deleted: 'false', reason: error});
+  }
 });
 
 export { router as TrucksController };
