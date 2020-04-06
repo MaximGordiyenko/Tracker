@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
     status: status || 'unassigned',
     type: type || 'unassigned',
   };
-
+  // FIXME : no validation for fields assigned_to, status, type, created_by
   Truck.create(truck, function (error, data) {
     if (error) {
       return res.status(400);
