@@ -15,7 +15,7 @@ const TruckSchema = new mongoose.Schema({
     trim: true
   },
   status: {
-    type: Boolean,
+    type: String,
     required: true,
   },
   type: {

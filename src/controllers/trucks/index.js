@@ -2,49 +2,77 @@ const express = require('express');
 const router = express.Router();
 import Truck from '../../models/trucks';
 
-router.post('/truck', (req, res, next) => {
-  const {createBy, assignTo, type, status} = req.body;
 
-  let checkStatus = status === undefined ? false : status;
-  console.log(createBy, assignTo, type, checkStatus);
+const errorHandler = (err, next) => {
+  if (err) {
+    console.log('default error handle', err);
 
-  if (createBy && assignTo && type && checkStatus) {
-    const trucks = {
-      creation_date: new Date().toLocaleDateString(),
-      created_by: createBy,
-      assigned_to: assignTo,
-      status: checkStatus,
-      type: type,
-    };
+    return next(err);
+  }
+};
 
-    Truck.create(trucks, function (error, truck) {
-      if (error) {
-        return res.status(400).send("mongoDB cannot create such truck")
-      } else {
-        return res.status(200).send(truck);
-      }
+router.post('/', (req, res, next) => {
+  const { createBy, assignTo, type, status } = req.body;
+
+  const truck = {
+    creation_date: Date.now(),
+    created_by: createBy || 'unassigned',
+    assigned_to: assignTo || 'unassigned',
+    status: status || 'unassigned',
+    type: type || 'unassigned',
+  };
+
+  Truck.create(truck, function (error, data) {
+    if (error) {
+      return res.status(400);
+    }
+    const { created_by, assigned_to, type, status, _id, creation_date } = data;
+
+    return res.send({ created_by, assigned_to, type, status, id: _id, creation_date });
+  });
+});
+
+router.get('/', function (req, res, next) {
+  const { created_by = null, assigned_to = null, type = null, status = null, _id = null, creation_date = null } = req.query;
+
+  if (created_by === null && assigned_to === null && type === null && status === null && _id === null && creation_date === null) {
+    // get all if no params
+    Truck.find({}, (err, data) => {
+      errorHandler(err, next);
+
+      return res.send(data.map(item => {
+        // eslint-disable-next-line no-undef
+        const { created_by, assigned_to, type, status, _id, creation_date } = item;
+
+        return ({ created_by, assigned_to, type, status, id: _id, creation_date });
+      }));
+    });
+  }
+  if (_id !== null) {
+    // get by id if
+    Truck.findById(_id, function (err, data) {
+      errorHandler(err, next);
+      const { created_by, assigned_to, type, status, _id, creation_date } = data;
+
+      return res.send({ created_by, assigned_to, type, status, id: _id, creation_date });
+    });
+  } else {
+    // get by param if params are present
+    Truck.find({ created_by, assigned_to, type, status, creation_date }, function (err, data) {
+      errorHandler(err, next);
+      const { created_by, assigned_to, type, status, _id, creation_date } = data;
+
+      return res.send({ created_by, assigned_to, type, status, id: _id, creation_date });
     });
   }
 });
 
-router.get('/truck', function (req, res, next) {
-  let name1 = req.query.name;
-  console.log(name1);
-  // Truck.find({}, function (err, docs) {
-  //   if (err) {
-  //     res.status(404).send(err);
-  //   } else {
-  //     res.json(docs);
-  //   }
-  // })
-});
-
-router.put('/truck', (req, res, next) => {
+router.put('/', (req, res, next) => {
 
 });
 
-router.delete('/truck', (req, res, next) => {
+router.delete('/', (req, res, next) => {
 
 });
 
-export {router as TrucksController};
+export { router as TrucksController };

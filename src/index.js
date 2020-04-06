@@ -21,9 +21,10 @@ if (envConfig.error) {
   throw envConfig.error;
 }
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect(process.env.MONGO_PATH, {
   useNewUrlParser: true,
@@ -48,16 +49,14 @@ app.use(session({
   })
 }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('src/view/public'));
-app.use('/trucks', express.static('src/view/trucks'));
+// app.use('/trucks', express.static('src/view/trucks'));
 
 app.post('/login', LoginController);
 app.post('/signup', SignupController);
 app.get('/logout', LogoutController);
 app.get('/profile', ProfileController);
-app.post('/truck', TrucksController);
-app.get('/loads', LoadsController);
+app.use('/truck', TrucksController);
+app.use('/loads', LoadsController);
 
 app.listen(process.env.NODE_PORT, () => console.log(`tracker running on port: ${process.env.NODE_PORT}`));
