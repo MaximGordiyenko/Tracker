@@ -37,20 +37,21 @@ router.get('/', function (req, res, next) {
 
   if (created_by === null && assigned_to === null && type === null && status === null && _id === null && creation_date === null) {
     // get all if no params
-    Truck.find({}, (err, data) => {
+    return Truck.find({}, (err, data) => {
       errorHandler(err, next);
-
+      
       return res.send(data.map(item => {
         // eslint-disable-next-line no-undef
         const { created_by, assigned_to, type, status, _id, creation_date } = item;
 
         return ({ created_by, assigned_to, type, status, id: _id, creation_date });
-      }));
+      })
+      );
     });
   }
   if (_id !== null) {
     // get by id if
-    Truck.findById(_id, function (err, data) {
+    return Truck.findById(_id, function (err, data) {
       errorHandler(err, next);
       const { created_by, assigned_to, type, status, _id, creation_date } = data;
 
@@ -58,7 +59,7 @@ router.get('/', function (req, res, next) {
     });
   } else {
     // get by param if params are present
-    Truck.find({ created_by, assigned_to, type, status, creation_date }, function (err, data) {
+    return Truck.find({ created_by, assigned_to, type, status, creation_date }, function (err, data) {
       errorHandler(err, next);
       const { created_by, assigned_to, type, status, _id, creation_date } = data;
 
