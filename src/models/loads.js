@@ -29,7 +29,7 @@ const LoadSchema = new mongoose.Schema({
     message: {
       type: String
     },
-    data: {
+    date: {
       type: Date
     }
   },
