@@ -4,15 +4,13 @@
   <meta charset="UTF-8">
   <title>Trucks</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
-<!--  <link href="../public/index.css" rel="stylesheet">-->
-<!--  <link href="../public/normalize.css" rel="stylesheet">-->
 </head>
 <body>
 <div class="app-container">
   
   <div class="post_truck">
     <h1>Create truck</h1>
-    <form action="/truck" method="post" id="post_truck-form">
+    <form action="/truck" method="post" class="post_truck-form">
       <label>Create by:
         <input placeholder="Username" name="createBy" value="Max" required type="text">
       </label>
@@ -35,15 +33,29 @@
   <div class="get_truck">
     <h1>Get truck</h1>
     <form action="/truck" method="get" id="get_truck-form">
+      <label>Get by id:
+        <input placeholder="input id" name="id" value="5e8a14b1b50dd626ae54bd55" required type="text">
+      </label>
       <label>Get creator:
         <input placeholder="Username" name="creator" value="Max" required type="text">
       </label>
-<!--      <label>Get assigner:-->
-<!--        <input placeholder="Username" name="assigner" value="Serj" required type="text">-->
-<!--      </label>-->
+      <label>Get assigner:
+        <input placeholder="Username" name="assigner" value="Serj" required type="text">
+      </label>
       <button type='submit'>Send</button>
     </form>
   </div>
+  
+  <div class="delete_truck">
+    <h1>Delete truck</h1>
+    <form action="/truck" method="post" id="delete_truck-form">
+      <label>Get by id:
+        <input placeholder="input id" name="id" value="5e8a14b1b50dd626ae54bd55" required type="text">
+      </label>
+      <button type='submit'>Send</button>
+    </form>
+  </div>
+
 </div>
 </body>
 </html>

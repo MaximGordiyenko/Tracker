@@ -1,22 +1,42 @@
 import mongoose from 'mongoose';
 
-const LoadsSchema = new mongoose.Schema({
-  loads: {
-    created_by: String,
-    status: String,
-    state: String,
-    dimensions: {
-      width: Number,
-      height: Number,
-      length: Number
+const LoadSchema = new mongoose.Schema({
+  created_by: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  dimensions: {
+    width: {
+      type: Number
     },
-    logs: {
-      message: String,
-      data: Date
+    height: {
+      type: Number
     },
-    payload: Number
+    length: {
+      type: Number
+    }
+  },
+  logs: {
+    message: {
+      type: String
+    },
+    data: {
+      type: Date
+    }
+  },
+  payload: {
+    type: Number
   }
 });
 
-const Loads = mongoose.model('Loads', LoadsSchema);
-export default Loads;
+const Load = mongoose.model('Load', LoadSchema);
+export default Load;

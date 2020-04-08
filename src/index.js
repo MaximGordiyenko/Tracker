@@ -72,6 +72,6 @@ app.post('/signup', roleLoggerMiddleWare, SignupController);
 app.get('/logout', roleLoggerMiddleWare, LogoutController);
 app.get('/profile', roleLoggerMiddleWare, ProfileController);
 app.use('/truck', roleLoggerMiddleWare, TrucksController);
-app.use('/loads', roleLoggerMiddleWare, LoadsController);
+app.use('/load', roleLoggerMiddleWare, LoadsController);
 
 app.listen(process.env.NODE_PORT, () => console.log(`tracker running on port: ${process.env.NODE_PORT}`));
