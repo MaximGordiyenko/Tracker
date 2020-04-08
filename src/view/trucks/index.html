@@ -48,14 +48,28 @@
   
   <div class="delete_truck">
     <h1>Delete truck</h1>
-    <form action="/truck" method="post" id="delete_truck-form">
+    <form action="/truck" id="delete_truck-form">
       <label>Get by id:
-        <input placeholder="input id" name="id" value="5e8a14b1b50dd626ae54bd55" required type="text">
+        <input placeholder="input id" name="id" class="inputDel" value="" required type="text">
       </label>
-      <button type='submit'>Send</button>
+      <button type='submit' class="delete_BTN">Send</button>
     </form>
   </div>
 
 </div>
+<script>
+  let btn = document.querySelector(".delete_BTN");
+  btn.addEventListener('click', async () => {
+    let input = document.querySelector(".inputDel").value;
+    await fetch('/truck', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({_id: input})
+    })
+
+  });
+</script>
 </body>
 </html>
