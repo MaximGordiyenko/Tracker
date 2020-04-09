@@ -74,10 +74,14 @@ router.get('/', function (req, res, next) {
 router.put('/', (req, res, next) => {
   const {_id, updateCreator, updateAssigner} = req.body;
   console.log(_id, updateCreator, updateAssigner);
-  Truck.update({_id}, {$set: {
-      created_by: updateCreator,
-      assigned_to: updateAssigner,
-    }});
+  let newData = {
+    created_by: updateCreator,
+    assigned_to: updateAssigner,
+  };
+  Truck.findOneAndUpdate({_id}, newData, {upsert: true}, function(err, doc) {
+    if (err) return res.send({error: err});
+    return res.send(`Succesfully saved ${doc}`);
+  });
 });
 
 router.delete('/', async (req, res, next) => {
