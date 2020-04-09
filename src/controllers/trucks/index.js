@@ -35,7 +35,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/', function (req, res, next) {
   const {created_by = null, assigned_to = null, type = null, status = null, _id = null, creation_date = null} = req.query;
-  console.log("get by req.query is:", req.query);
+  // console.log("get by req.query is:", req.query);
   console.log(req.sessionID);
   ///
   if (created_by === null && assigned_to === null && type === null && status === null && _id === null && creation_date === null) {
@@ -72,7 +72,12 @@ router.get('/', function (req, res, next) {
 });
 
 router.put('/', (req, res, next) => {
-  const {_id} = req.body;
+  const {_id, updateCreator, updateAssigner} = req.body;
+  console.log(_id, updateCreator, updateAssigner);
+  Truck.update({_id}, {$set: {
+      created_by: updateCreator,
+      assigned_to: updateAssigner,
+    }});
 });
 
 router.delete('/', async (req, res, next) => {
