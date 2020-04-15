@@ -11,6 +11,7 @@ import { SignupController } from './controllers/signup';
 import { LoginController } from './controllers/login';
 import { TrucksController } from './controllers/trucks';
 import { LoadsController } from './controllers/loads';
+import { isDriver, isAdmin, isCustomer } from './middlewares/roles';
 import User from './models/users';
 
 
@@ -65,7 +66,7 @@ const roleLoggerMiddleWare = async (req, res, next) => {
 app.use(express.static('src/view/public'));
 
 //static for trucks
-app.use('/trucks', roleLoggerMiddleWare, express.static('src/view/trucks'));
+app.use('/trucks', [roleLoggerMiddleWare, isDriver], express.static('src/view/trucks'));
 
 app.post('/login', roleLoggerMiddleWare, LoginController);
 app.post('/signup', roleLoggerMiddleWare, SignupController);
