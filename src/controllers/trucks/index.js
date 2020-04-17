@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 import Truck from '../../models/trucks';
 
-router.post('/', (req, res) => {
+router.post('/', function (req, res) {
   const {createBy, assignTo, type, status} = req.body;
 
   const truck = {
@@ -13,17 +13,16 @@ router.post('/', (req, res) => {
     type: type || 'unassigned',
   };
 
-  return Truck.find({created_by: createBy, assigned_to: assignTo, type: type, status: status}, async function (err, doc) {
+  return Truck.find({created_by: createBy, assigned_to: assignTo, type: type, status: status}, function (err, doc) {
     if (doc.length > 0) {
-      return res.send('document exist');
-    } else {
-      try {
-        const promiseResult = await Truck.create(truck);
-        return res.send({create: 'true', result: promiseResult});
-      } catch (e) {
-        return res.send({create: 'false', reason: e});
-      }
+      return res.status(409).send(`Conflict: the ${doc.length} document exist in DB`);
     }
+    return Truck.create(truck, function (err, doc) {
+      if (err) {
+        return res.send(err);
+      }
+      return res.send(doc);
+    })
   });
 });
 
@@ -32,11 +31,11 @@ router.get('/', function (req, res) {
   console.log(req.sessionID);
 
   if (id === '' && creator === '' && assigner === '') {
-    return Truck.find({}, (err, data) => {
+    return Truck.find({}, function (err, data) {
       if (err) {
         return res.status(404).send(err);
       }
-      return res.send(data);
+      return res.status(200).send(data);
     });
   }
 
@@ -45,59 +44,53 @@ router.get('/', function (req, res) {
       if (err) {
         return res.status(404).send(err);
       }
-      console.log("this is doc", doc, "type", Array.isArray(doc));
-      return res.send(doc);
+      return res.status(200).send(doc);
     });
   }
-  return res.status(404).send({});
 
-  // if (assigner !== '') {
-  //   Truck.find({assigned_to: assigner}, function (err, doc) {
-  //     errorHandler(err, next);
-  //     return res.send(doc.map(item => {
-  //       const {_id, created_by, assigned_to, type, status, creation_date} = item;
-  //       return ({_id, created_by, assigned_to, type, status, creation_date});
-  //     }))
-  //   });
-  // }
+  if (assigner !== '') {
+    return Truck.find({assigned_to: assigner}, function (err, doc) {
+      if (err) {
+        return res.status(404).send(err);
+      }
+      return res.status(200).send(doc)
+    });
+  }
 
-//   if (id !== '') {
-//     Truck.findById({_id: id}, function (err, data) {
-//       errorHandler(err, next);
-//       const {_id: id, created_by, assigned_to, type, status, creation_date} = data;
-//       return res.send({_id: id, created_by, assigned_to, type, status, creation_date});
-//     });
-//   }
+  if (id !== '') {
+    return Truck.findById({_id: id}, function (err, doc) {
+      if (err) {
+        return res.status(404).send(err);
+      }
+      return res.status(200).send(doc)
+    });
+  }
 });
 
 router.put('/', function (req, res) {
   const {id, updateCreator, updateAssigner} = req.body;
-  console.log(id, updateCreator, updateAssigner);
+
   let newData = {
     created_by: updateCreator,
     assigned_to: updateAssigner,
   };
-  Truck.findByIdAndUpdate(id, newData, {new: true}, function (err, doc) {
-    if (err) return res.status(500);
+
+  return Truck.findByIdAndUpdate(id, newData, {new: true}, function (err, doc) {
+    if (err) {
+      return res.status(500).send(err);
+    }
     return res.status(200).send(doc);
   });
-  res.status(200);
 });
 
-router.delete('/', async (req, res) => {
-  const {_id} = req.body;
-  console.log("delete:", _id);
-  try {
-    // eslint-disable-next-line no-unused-vars
-    let itemToDelete = await Truck.findOneAndDelete({_id});
-    if (itemToDelete === null) {
-      return res.send({_id, deleted: 'false', reason: 'item not found'});
+router.delete('/', function (req, res) {
+  const {id} = req.body;
+  return Truck.findOneAndDelete({_id: id}, function (err, doc) {
+    if (err) {
+      return res.status(500).send(err);
     }
-
-    return res.send({_id, deleted: 'true'});
-  } catch (error) {
-    return res.send({_id, deleted: 'false', reason: error});
-  }
+    return res.status(200).send(doc);
+  })
 });
 
 export {router as TrucksController};
