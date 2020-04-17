@@ -2,18 +2,8 @@ const express = require('express');
 const router = express.Router();
 import Truck from '../../models/trucks';
 
-
-const errorHandler = (err, next) => {
-  if (err) {
-    console.log('default error handle', err);
-
-    return next(err);
-  }
-};
-
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   const {createBy, assignTo, type, status} = req.body;
-  console.log("post:", createBy, assignTo, type, status);
 
   const truck = {
     creation_date: Date.now(),
@@ -22,69 +12,79 @@ router.post('/', (req, res, next) => {
     status: status || 'unassigned',
     type: type || 'unassigned',
   };
-  // FIXME : no validation for fields assigned_to, status, type, created_by
-  Truck.create(truck, function (error, data) {
-    if (error) {
-      return res.status(400);
-    }
-    const {created_by, assigned_to, type, status, _id, creation_date} = data;
 
-    return res.send({created_by, assigned_to, type, status, id: _id, creation_date});
+  return Truck.find({created_by: createBy, assigned_to: assignTo, type: type, status: status}, async function (err, doc) {
+    if (doc.length > 0) {
+      return res.send('document exist');
+    } else {
+      try {
+        const promiseResult = await Truck.create(truck);
+        return res.send({create: 'true', result: promiseResult});
+      } catch (e) {
+        return res.send({create: 'false', reason: e});
+      }
+    }
   });
 });
 
-router.get('/', function (req, res, next) {
-  const {created_by = null, assigned_to = null, type = null, status = null, _id = null, creation_date = null} = req.query;
-  // console.log("get by req.query is:", req.query);
+router.get('/', function (req, res) {
+  const {creator, assigner, id} = req.query;
   console.log(req.sessionID);
-  ///
-  if (created_by === null && assigned_to === null && type === null && status === null && _id === null && creation_date === null) {
-    // get all if no params
+
+  if (id === '' && creator === '' && assigner === '') {
     return Truck.find({}, (err, data) => {
-      errorHandler(err, next);
-
-      return res.send(data.map(item => {
-          // eslint-disable-next-line no-undef
-          const {created_by, assigned_to, type, status, _id, creation_date} = item;
-
-          return ({created_by, assigned_to, type, status, id: _id, creation_date});
-        })
-      );
+      if (err) {
+        return res.status(404).send(err);
+      }
+      return res.send(data);
     });
   }
-  if (_id !== null) {
-    // get by id if
-    return Truck.findById(_id, function (err, data) {
-      errorHandler(err, next);
-      const {created_by, assigned_to, type, status, _id, creation_date} = data;
 
-      return res.send({created_by, assigned_to, type, status, id: _id, creation_date});
-    });
-  } else {
-    // get by param if params are present
-    return Truck.find({created_by, assigned_to, type, status, creation_date}, function (err, data) {
-      errorHandler(err, next);
-      const {created_by, assigned_to, type, status, _id, creation_date} = data;
-
-      return res.send({created_by, assigned_to, type, status, id: _id, creation_date});
+  if (creator !== '') {
+    return Truck.find({created_by: creator}, function (err, doc) {
+      if (err) {
+        return res.status(404).send(err);
+      }
+      console.log("this is doc", doc, "type", Array.isArray(doc));
+      return res.send(doc);
     });
   }
+  return res.status(404).send({});
+
+  // if (assigner !== '') {
+  //   Truck.find({assigned_to: assigner}, function (err, doc) {
+  //     errorHandler(err, next);
+  //     return res.send(doc.map(item => {
+  //       const {_id, created_by, assigned_to, type, status, creation_date} = item;
+  //       return ({_id, created_by, assigned_to, type, status, creation_date});
+  //     }))
+  //   });
+  // }
+
+//   if (id !== '') {
+//     Truck.findById({_id: id}, function (err, data) {
+//       errorHandler(err, next);
+//       const {_id: id, created_by, assigned_to, type, status, creation_date} = data;
+//       return res.send({_id: id, created_by, assigned_to, type, status, creation_date});
+//     });
+//   }
 });
 
-router.put('/', (req, res, next) => {
-  const {_id, updateCreator, updateAssigner} = req.body;
-  console.log(_id, updateCreator, updateAssigner);
+router.put('/', function (req, res) {
+  const {id, updateCreator, updateAssigner} = req.body;
+  console.log(id, updateCreator, updateAssigner);
   let newData = {
     created_by: updateCreator,
     assigned_to: updateAssigner,
   };
-  Truck.findOneAndUpdate({_id}, newData, {upsert: true}, function(err, doc) {
-    if (err) return res.send({error: err});
-    return res.send(`Succesfully saved ${doc}`);
+  Truck.findByIdAndUpdate(id, newData, {new: true}, function (err, doc) {
+    if (err) return res.status(500);
+    return res.status(200).send(doc);
   });
+  res.status(200);
 });
 
-router.delete('/', async (req, res, next) => {
+router.delete('/', async (req, res) => {
   const {_id} = req.body;
   console.log("delete:", _id);
   try {

@@ -5,12 +5,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import { ProfileController } from './controllers/profile';
-import { LogoutController } from './controllers/logout';
-import { SignupController } from './controllers/signup';
-import { LoginController } from './controllers/login';
-import { TrucksController } from './controllers/trucks';
-import { LoadsController } from './controllers/loads';
+import {ProfileController} from './controllers/profile';
+import {LogoutController} from './controllers/logout';
+import {SignupController} from './controllers/signup';
+import {LoginController} from './controllers/login';
+import {TrucksController} from './controllers/trucks';
+import {LoadsController} from './controllers/loads';
 import User from './models/users';
 
 
@@ -24,7 +24,7 @@ if (envConfig.error) {
 }
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 app.use(express.json());
 
@@ -32,6 +32,7 @@ mongoose.connect(process.env.MONGO_PATH, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false
 }).then((result) => {
   console.log(`MongoDB connection granted`);
 }).catch(error => console.log(`There is troubles with connecting to MongoDB ${error}`));
