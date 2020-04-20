@@ -9,8 +9,6 @@ import { ProfileController } from './controllers/profile';
 import { LogoutController } from './controllers/logout';
 import { SignupController } from './controllers/signup';
 import { LoginController } from './controllers/login';
-import { TrucksController } from './controllers/trucks';
-import { LoadsController } from './controllers/loads';
 import { isDriver, isAdmin, isCustomer } from './middlewares/roles';
 import User from './models/users';
 
@@ -72,7 +70,5 @@ app.post('/login', roleLoggerMiddleWare, LoginController);
 app.post('/signup', roleLoggerMiddleWare, SignupController);
 app.get('/logout', roleLoggerMiddleWare, LogoutController);
 app.get('/profile', roleLoggerMiddleWare, ProfileController);
-app.use('/truck', roleLoggerMiddleWare, TrucksController);
-app.use('/load', roleLoggerMiddleWare, LoadsController);
 
 app.listen(process.env.NODE_PORT, () => console.log(`tracker running on port: ${process.env.NODE_PORT}`));
