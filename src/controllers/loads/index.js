@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 import Load from "../../models/loads";
 
-router.post('/', (req, res, next) => {
+router.post('/', function (req, res) {
   const {created_by, status, state, dimensions: {width, height, length}, logs: {message, date}, payload} = req.body;
   console.log(created_by, status, state, width, height, length, message, date, payload);
 
@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
     payload: payload,
   };
 
-  Load.create(load, function (err, data) {
+  return Load.create(load, function (err, data) {
     if (err) {
       res.status(404).send(`error create DB ${err}`)
     } else {

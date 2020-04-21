@@ -19,7 +19,7 @@ router.post('/signup', (req, res, next) => {
       password: pass,
     };
 
-    User.create(userData, function (error, user) {
+    return User.create(userData, function (error, user) {
       if (error) {
         return res.status(400).send("mongoDB cannot create such user");
       } else {

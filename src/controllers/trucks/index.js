@@ -39,30 +39,32 @@ router.get('/', function (req, res) {
     });
   }
 
+  if (id !== '') {
+    return Truck.findById({_id: id}, function (err, doc) {
+      if (!doc || err) {
+        return res.status(404).send({message: `Document with _id: ${id} doesn't found `, err: err});
+      }
+      return res.status(200).send(doc)
+    });
+  }
+
   if (creator !== '') {
     return Truck.find({created_by: creator}, function (err, doc) {
-      if (err) {
-        return res.status(404).send(err);
-      }
+      if (0 === doc.length || err) return res.status(404).send({
+        message: `Document with user: ${creator} doesn't found `,
+        err: err
+      });
       return res.status(200).send(doc);
     });
   }
 
   if (assigner !== '') {
     return Truck.find({assigned_to: assigner}, function (err, doc) {
-      if (err) {
-        return res.status(404).send(err);
-      }
-      return res.status(200).send(doc)
-    });
-  }
-
-  if (id !== '') {
-    return Truck.findById({_id: id}, function (err, doc) {
-      if (err) {
-        return res.status(404).send(err);
-      }
-      return res.status(200).send(doc)
+      if (0 === doc.length || err) return res.status(404).send({
+        message: `Document with user: ${assigner} doesn't found `,
+        err: err
+      });
+      return res.status(200).send(doc);
     });
   }
 });
@@ -76,7 +78,7 @@ router.put('/', function (req, res) {
   };
 
   return Truck.findByIdAndUpdate(id, newData, {new: true}, function (err, doc) {
-    if (err) {
+    if (!doc || err) {
       return res.status(500).send(err);
     }
     return res.status(200).send(doc);
@@ -86,7 +88,7 @@ router.put('/', function (req, res) {
 router.delete('/', function (req, res) {
   const {id} = req.body;
   return Truck.findOneAndDelete({_id: id}, function (err, doc) {
-    if (err) {
+    if (!doc || err) {
       return res.status(500).send(err);
     }
     return res.status(200).send(doc);

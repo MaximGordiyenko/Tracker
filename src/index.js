@@ -58,15 +58,14 @@ const roleLoggerMiddleWare = async (req, res, next) => {
     console.log('current user role:', user.role || 'unauthorized');
   } catch (err) {
     console.log('current user role:', 'unauthorized');
-
   }
   next();
 };
+
 //static content
 app.use(express.static('src/view/public'));
-
-//static for trucks
 app.use('/trucks', roleLoggerMiddleWare, express.static('src/view/trucks'));
+app.use('/loads', roleLoggerMiddleWare, express.static('src/view/loads'));
 
 app.post('/login', roleLoggerMiddleWare, LoginController);
 app.post('/signup', roleLoggerMiddleWare, SignupController);

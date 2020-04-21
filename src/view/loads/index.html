@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Trucks</title>
+  <title>Loads</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
   <link href="./index.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div class="app-container">
   
-  <div class="post_truck-container">
-    <h1>Create truck</h1>
-    <form action="/truck" method="post">
+  <div class="post_load-container">
+    <h1>Create load</h1>
+    <form action="/load" method="post">
       <label>Create by:
         <input placeholder="Username"
                name="createBy"
@@ -44,9 +44,9 @@
     </form>
   </div>
   
-  <div class="get_truck-container">
-    <h1>Get truck</h1>
-    <form action="/truck" method="get">
+  <div class="get_load-container">
+    <h1>Get load</h1>
+    <form action="/load" method="get">
       <label>Get by id:
         <input placeholder="input id"
                name="id"
@@ -72,20 +72,22 @@
     </form>
   </div>
   
-  <div class="update_truck-container">
-    <h1>Update truck</h1>
-    <form action="/truck">
+  <div class="update_load-container">
+    <h1>Update load</h1>
+    <form action="/load">
       <label>Get by id:
         <input placeholder="input id"
                name="id"
                value=""
+               required
                type="text"
-               class="updateId">
+               class="getUpdateId">
       </label>
       <label>Update creator:
         <input placeholder="Username"
                name="creator"
                value=""
+               required
                type="text"
                class="updateCreator">
       </label>
@@ -93,16 +95,17 @@
         <input placeholder="Username"
                name="assigner"
                value=""
+               required
                type="text"
                class="updateAssigner">
       </label>
-      <button type='submit' class="update_BTN">Update</button>
+      <button type='submit' class="upDate_BTN">Update</button>
     </form>
   </div>
   
-  <div class="delete_truck-container">
-    <h1>Delete truck</h1>
-    <form action="/truck">
+  <div class="delete_load-container">
+    <h1>Delete load</h1>
+    <form action="/load">
       <label>Get by id:
         <input placeholder="input id"
                name="id"
@@ -117,12 +120,12 @@
 
 </div>
 <script>
-  const update_btn = document.querySelector(".update_BTN");
+  const update_btn = document.querySelector(".upDate_BTN");
   update_btn.addEventListener('click', async () => {
-    let getUpdateId = document.querySelector(".updateId").value;
+    let getUpdateId = document.querySelector(".getUpdateId").value;
     let updateCreator = document.querySelector(".updateCreator").value;
     let updateAssigner = document.querySelector(".updateAssigner").value;
-    await fetch('/truck', {
+    await fetch('/load', {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({id: getUpdateId, updateCreator, updateAssigner})
@@ -132,7 +135,7 @@
   let delete_btn = document.querySelector(".delete_BTN");
   delete_btn.addEventListener('click', async () => {
     let inputDel = document.querySelector(".inputDel").value;
-    await fetch('/truck', {
+    await fetch('/load', {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({id: inputDel})
