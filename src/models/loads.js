@@ -9,10 +9,12 @@ const LoadSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
+    trim: true
   },
   state: {
     type: String,
     required: true,
+    trim: true
   },
   dimensions: {
     width: {
@@ -27,7 +29,8 @@ const LoadSchema = new mongoose.Schema({
   },
   logs: {
     message: {
-      type: String
+      type: String,
+      trim: true
     },
     date: {
       type: Date

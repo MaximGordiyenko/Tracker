@@ -11,35 +11,58 @@
   
   <div class="post_load-container">
     <h1>Create load</h1>
-    <form action="/load" method="post">
+    <form action="/load" method="post" id="load-form">
       <label>Create by:
         <input placeholder="Username"
                name="createBy"
                value=""
                type="text">
       </label>
-      <label>Assign to:
-        <input placeholder="Username"
-               name="assignTo"
-               value=""
-               type="text">
-      </label>
       
-      <label>Type:
-        <input placeholder="Type of delivery"
-               name="type"
+      <label>State:
+        <input placeholder="State"
+               name="state"
                value=""
                type="text">
       </label>
       
       <div class="status">
-        <label for="sign-status">status</label>
+        <label for="sign-status">Status</label>
         <input id="sign-status"
                name="status"
                type="checkbox"
                value="true"
                checked>
       </div>
+      <h2>Dimensions</h2>
+      <label for="width">width:</label>
+      <select id="width" name="width">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+      </select><br>
+      
+      <label for="height">height:</label>
+      <select id="height" name="height">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+      </select><br>
+      
+      <label for="length">length:</label>
+      <select id="length" name="length">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+      </select><br>
+      
+      <label for="message">Insert message:</label>
+      <textarea rows="4"
+                cols="45"
+                name="message"
+                form="load-form"
+                id="message"></textarea>
+      
       <button type='submit'>Send</button>
     </form>
   </div>
@@ -51,22 +74,19 @@
         <input placeholder="input id"
                name="id"
                value=""
-               type="text"
-               class="getId">
+               type="text">
       </label>
       <label>Get creator:
         <input placeholder="Username"
                name="creator"
                value=""
-               type="text"
-               class="getCreator">
+               type="text">
       </label>
-      <label>Get assigner:
-        <input placeholder="Username"
-               name="assigner"
+      <label>Get state:
+        <input placeholder="Get state"
+               name="state"
                value=""
-               type="text"
-               class="getAssigner">
+               type="text">
       </label>
       <button type='submit' class="getBtn">Get</button>
     </form>
@@ -79,7 +99,6 @@
         <input placeholder="input id"
                name="id"
                value=""
-               required
                type="text"
                class="getUpdateId">
       </label>
@@ -87,17 +106,15 @@
         <input placeholder="Username"
                name="creator"
                value=""
-               required
                type="text"
                class="updateCreator">
       </label>
-      <label>Update assigner:
-        <input placeholder="Username"
-               name="assigner"
+      <label>Update state:
+        <input placeholder="State"
+               name="state"
                value=""
-               required
                type="text"
-               class="updateAssigner">
+               class="updateState">
       </label>
       <button type='submit' class="upDate_BTN">Update</button>
     </form>
@@ -111,7 +128,6 @@
                name="id"
                class="inputDel"
                value=""
-               required
                type="text">
       </label>
       <button type='submit' class="delete_BTN">Delete</button>
@@ -124,11 +140,11 @@
   update_btn.addEventListener('click', async () => {
     let getUpdateId = document.querySelector(".getUpdateId").value;
     let updateCreator = document.querySelector(".updateCreator").value;
-    let updateAssigner = document.querySelector(".updateAssigner").value;
+    let updateState = document.querySelector(".updateState").value;
     await fetch('/load', {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({id: getUpdateId, updateCreator, updateAssigner})
+      body: JSON.stringify({id: getUpdateId, updateCreator, updateState})
     });
   });
 
@@ -139,7 +155,7 @@
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({id: inputDel})
-    })
+    });
   });
 </script>
 </body>

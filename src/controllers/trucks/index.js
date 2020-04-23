@@ -13,29 +13,29 @@ router.post('/', function (req, res) {
     type: type || 'unassigned',
   };
 
-  return Truck.find({created_by: createBy, assigned_to: assignTo, type: type, status: status}, function (err, doc) {
+  return Truck.find({created_by: createBy, assigned_to: assignTo, type: type}, function (err, doc) {
     if (doc.length > 0) {
       return res.status(409).send(`Conflict: the ${doc.length} document exist in DB`);
     }
     return Truck.create(truck, function (err, doc) {
       if (err) {
-        return res.send(err);
+        return res.status(404).send(err);
       }
       return res.send(doc);
-    })
+    });
   });
 });
 
 router.get('/', function (req, res) {
-  const {creator, assigner, id} = req.query;
+  const {id, creator, assigner} = req.query;
   console.log(req.sessionID);
 
   if (id === '' && creator === '' && assigner === '') {
-    return Truck.find({}, function (err, data) {
+    return Truck.find({}, function (err, doc) {
       if (err) {
         return res.status(404).send(err);
       }
-      return res.status(200).send(data);
+      return res.status(200).send(doc);
     });
   }
 

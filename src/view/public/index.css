@@ -11,7 +11,7 @@ form {
 input {
     margin-bottom: 3px;
     margin-right: 10px;
-    padding: 10px;
+    padding: 7px;
     width: 100%;
     border: 1px solid #CCC
 }
@@ -47,7 +47,6 @@ label {
     text-align: center;
     color: #4d4d4d;
     font-size: 24px;
-    padding: 20px 0 20px 0;
 }
 
 .login-container input[type="text"],
@@ -56,7 +55,6 @@ label {
 .registration-container input[type="email"],
 .registration-container input[type="password"] {
     width: 100%;
-    padding: 15px;
     border: 1px solid #dddddd;
     margin-bottom: 15px;
     box-sizing: border-box;
