@@ -5,14 +5,14 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import {ProfileController} from './controllers/profile';
-import {LogoutController} from './controllers/logout';
-import {SignupController} from './controllers/signup';
-import {LoginController} from './controllers/login';
-import {TrucksController} from './controllers/trucks';
-import {LoadsController} from './controllers/loads';
+import { ProfileController } from './controllers/profile';
+import { LogoutController } from './controllers/logout';
+import { SignupController } from './controllers/signup';
+import { LoginController } from './controllers/login';
+import { TrucksController } from './controllers/trucks';
+import { LoadsController } from './controllers/loads';
+import { isDriver, isAdmin, isCustomer } from './middlewares/roles';
 import User from './models/users';
-
 
 const app = express();
 const MongoStore = connectMongo(session);
@@ -24,7 +24,7 @@ if (envConfig.error) {
 }
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 
@@ -58,10 +58,10 @@ const roleLoggerMiddleWare = async (req, res, next) => {
     console.log('current user role:', user.role || 'unauthorized');
   } catch (err) {
     console.log('current user role:', 'unauthorized');
+
   }
   next();
 };
-
 //static content
 app.use(express.static('src/view/public'));
 app.use('/trucks', roleLoggerMiddleWare, express.static('src/view/trucks'));
