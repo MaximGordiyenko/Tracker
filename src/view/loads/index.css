@@ -1,0 +1,75 @@
+input {
+    margin-bottom: 3px;
+    margin-right: 10px;
+    padding: 7px;
+    width: 100%;
+    border: 1px solid #CCC
+}
+
+button {
+    padding: 10px;
+    margin: 10px;
+    outline: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.post_load-container,
+.get_load-container,
+.update_load-container,
+.delete_load-container {
+    width: 300px;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+.post_load-container h1,
+.get_load-container h1,
+.update_load-container h1,
+.delete_load-container h1 {
+    text-align: center;
+    color: #4d4d4d;
+    font-size: 24px;
+}
+
+.post_load-container input[type="text"],
+.get_load-container input[type="text"],
+.update_load-container input[type="text"],
+.delete_load-container input[type="text"] {
+    width: 100%;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.post_load-container button,
+.get_load-container button,
+.update_load-container button,
+.delete_load-container button {
+    width: 100%;
+    padding: 15px;
+    background-color: #535b63;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 10px 0 10px 0;
+}
+
+.post_load-container button:hover,
+.get_load-container button:hover,
+.update_load-container button:hover,
+.delete_load-container button:hover {
+    background-color: #a7a7a7;
+    color: #535b63;
+}

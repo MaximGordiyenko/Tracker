@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trucks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="./index.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+  
+  <div class="post_truck-container">
+    <h1>Create truck</h1>
+    <form action="/truck" method="post">
+      <label>Create by:
+        <input placeholder="Username"
+               name="createBy"
+               value=""
+               type="text">
+      </label>
+      <label>Assign to:
+        <input placeholder="Username"
+               name="assignTo"
+               value=""
+               type="text">
+      </label>
+      
+      <label>Type:
+        <input placeholder="Type of delivery"
+               name="type"
+               value=""
+               type="text">
+      </label>
+      
+      <div class="status">
+        <label for="sign-status">status</label>
+        <input id="sign-status"
+               name="status"
+               type="checkbox"
+               value="true"
+               checked>
+      </div>
+      <button type='submit'>Send</button>
+    </form>
+  </div>
+  
+  <div class="get_truck-container">
+    <h1>Get truck</h1>
+    <form action="/truck" method="get">
+      <label>Get by id:
+        <input placeholder="input id"
+               name="id"
+               value=""
+               type="text">
+      </label>
+      <label>Get creator:
+        <input placeholder="Username"
+               name="creator"
+               value=""
+               type="text">
+      </label>
+      <label>Get assigner:
+        <input placeholder="Username"
+               name="assigner"
+               value=""
+               type="text">
+      </label>
+      <button type='submit' class="getBtn">Get</button>
+    </form>
+  </div>
+  
+  <div class="update_truck-container">
+    <h1>Update truck</h1>
+    <form action="/truck">
+      <label>Get by id:
+        <input placeholder="input id"
+               name="id"
+               value=""
+               type="text"
+               class="updateId">
+      </label>
+      <label>Update creator:
+        <input placeholder="Username"
+               name="creator"
+               value=""
+               type="text"
+               class="updateCreator">
+      </label>
+      <label>Update assigner:
+        <input placeholder="Username"
+               name="assigner"
+               value=""
+               type="text"
+               class="updateAssigner">
+      </label>
+      <button type='submit' class="update_BTN">Update</button>
+    </form>
+  </div>
+  
+  <div class="delete_truck-container">
+    <h1>Delete truck</h1>
+    <form action="/truck">
+      <label>Get by id:
+        <input placeholder="input id"
+               name="id"
+               class="inputDel"
+               value=""
+               required
+               type="text">
+      </label>
+      <button type='submit' class="delete_BTN">Delete</button>
+    </form>
+  </div>
+
+</div>
+<script>
+  const update_btn = document.querySelector(".update_BTN");
+  update_btn.addEventListener('click', async () => {
+    let getUpdateId = document.querySelector(".updateId").value;
+    let updateCreator = document.querySelector(".updateCreator").value;
+    let updateAssigner = document.querySelector(".updateAssigner").value;
+    await fetch('/truck', {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id: getUpdateId, updateCreator, updateAssigner})
+    });
+  });
+
+  let delete_btn = document.querySelector(".delete_BTN");
+  delete_btn.addEventListener('click', async () => {
+    let inputDel = document.querySelector(".inputDel").value;
+    await fetch('/truck', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id: inputDel})
+    })
+  });
+</script>
+</body>
+</html>
