@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 import User from '../../models/users';
 
-
 router.get('/profile', function (req, res, next) {
   User.findById(req.session.userId)
     .exec(function (error, user) {
@@ -12,11 +11,9 @@ router.get('/profile', function (req, res, next) {
         if (user === null) {
           const err = new Error('Not authorized! Go back!');
           err.status = 400;
-
           return next(err);
         } else {
-          const { username, email, role } = user;
-
+          const {username, email, role} = user;
           return res.send(`
                   <b>username:</b>${username}<br>
                   <b>email:</b>${email}<br> 
@@ -28,4 +25,4 @@ router.get('/profile', function (req, res, next) {
     });
 });
 
-export { router as ProfileController };
+export {router as ProfileController};
