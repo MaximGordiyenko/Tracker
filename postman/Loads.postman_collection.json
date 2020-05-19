@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "54318512-521d-4624-864b-8598576d0af6",
+		"name": "Loads",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/load?id=&creator=&state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"load"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": ""
+						},
+						{
+							"key": "creator",
+							"value": ""
+						},
+						{
+							"key": "state",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"width\": 321,\n\"height\": 321,\n\"length\": 211,\n\"message\": \"I wou33333ld like to have every string property have trim set to true by default. Is there a way333333?\",\n\"created_by\": \"Fuck\",\n\"state\": \"12334\",\n\"status\": \"false\",\n\"payload\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/load",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"load"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/truck?id=5e8a134e8c693e2694a3a285",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"truck"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5e8a134e8c693e2694a3a285"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read By Param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/load?id=&creator=Kate&state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"load"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": ""
+						},
+						{
+							"key": "creator",
+							"value": "Kate"
+						},
+						{
+							"key": "state",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5e9f16089d2e467639141ca3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/load",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"load"
+					],
+					"query": [
+						{
+							"key": "_id",
+							"value": "5e9f16089d2e467639141ca3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b5a6f33d-c2cc-4240-b43e-b2e80284ec40",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "75ad6363-cca0-49f3-b161-25a671f17cb3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

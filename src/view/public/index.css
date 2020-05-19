@@ -11,7 +11,7 @@ form {
 input {
     margin-bottom: 3px;
     margin-right: 10px;
-    padding: 10px;
+    padding: 7px;
     width: 100%;
     border: 1px solid #CCC
 }
@@ -22,11 +22,6 @@ button {
 
 label {
     cursor: pointer;
-}
-
-.form-container {
-    margin: 20px;
-    padding: 20px;
 }
 
 .app-container {
@@ -41,33 +36,32 @@ label {
     justify-content: space-evenly;
 }
 
-.login-form .registration-form {
+.login-container,
+.registration-container {
     width: 300px;
     font-family: Tahoma, Geneva, sans-serif;
 }
 
-.login-form h1,
-.registration-form h1 {
+.login-container h1,
+.registration-container h1 {
     text-align: center;
     color: #4d4d4d;
     font-size: 24px;
-    padding: 20px 0 20px 0;
 }
 
-.login-form input[type="password"],
-.login-form input[type="text"],
-.registration-form input[type="password"],
-.registration-form input[type="email"],
-.registration-form input[type="text"] {
+.login-container input[type="text"],
+.login-container input[type="password"],
+.registration-container input[type="text"],
+.registration-container input[type="email"],
+.registration-container input[type="password"] {
     width: 100%;
-    padding: 15px;
     border: 1px solid #dddddd;
     margin-bottom: 15px;
     box-sizing: border-box;
 }
 
-.login-form input[type="submit"],
-.registration-form button {
+.login-container input[type="submit"],
+.registration-container button {
     width: 100%;
     padding: 15px;
     background-color: #535b63;

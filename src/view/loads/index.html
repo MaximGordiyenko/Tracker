@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="./index.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+  
+  <div class="post_load-container">
+    <h1>Create load</h1>
+    <form action="/load" method="post" id="load-form">
+      <label>Create by:
+        <input placeholder="Username"
+               name="createBy"
+               value=""
+               type="text">
+      </label>
+      
+      <label>State:
+        <input placeholder="State"
+               name="state"
+               value=""
+               type="text">
+      </label>
+      
+      <div class="status">
+        <label for="sign-status">Status</label>
+        <input id="sign-status"
+               name="status"
+               type="checkbox"
+               value="true"
+               checked>
+      </div>
+      <h2>Dimensions</h2>
+      <label for="width">width:</label>
+      <select id="width" name="width">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+      </select><br>
+      
+      <label for="height">height:</label>
+      <select id="height" name="height">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+      </select><br>
+      
+      <label for="length">length:</label>
+      <select id="length" name="length">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+      </select><br>
+      
+      <label for="message">Insert message:</label>
+      <textarea rows="4"
+                cols="45"
+                name="message"
+                form="load-form"
+                id="message"></textarea>
+      
+      <button type='submit'>Send</button>
+    </form>
+  </div>
+  
+  <div class="get_load-container">
+    <h1>Get load</h1>
+    <form action="/load" method="get">
+      <label>Get by id:
+        <input placeholder="input id"
+               name="id"
+               value=""
+               type="text">
+      </label>
+      <label>Get creator:
+        <input placeholder="Username"
+               name="creator"
+               value=""
+               type="text">
+      </label>
+      <label>Get state:
+        <input placeholder="Get state"
+               name="state"
+               value=""
+               type="text">
+      </label>
+      <button type='submit' class="getBtn">Get</button>
+    </form>
+  </div>
+  
+  <div class="update_load-container">
+    <h1>Update load</h1>
+    <form action="/load">
+      <label>Get by id:
+        <input placeholder="input id"
+               name="id"
+               value=""
+               type="text"
+               class="getUpdateId">
+      </label>
+      <label>Update creator:
+        <input placeholder="Username"
+               name="creator"
+               value=""
+               type="text"
+               class="updateCreator">
+      </label>
+      <label>Update state:
+        <input placeholder="State"
+               name="state"
+               value=""
+               type="text"
+               class="updateState">
+      </label>
+      <button type='submit' class="upDate_BTN">Update</button>
+    </form>
+  </div>
+  
+  <div class="delete_load-container">
+    <h1>Delete load</h1>
+    <form action="/load">
+      <label>Get by id:
+        <input placeholder="input id"
+               name="id"
+               class="inputDel"
+               value=""
+               type="text">
+      </label>
+      <button type='submit' class="delete_BTN">Delete</button>
+    </form>
+  </div>
+
+</div>
+<script>
+  const update_btn = document.querySelector(".upDate_BTN");
+  update_btn.addEventListener('click', async () => {
+    let getUpdateId = document.querySelector(".getUpdateId").value;
+    let updateCreator = document.querySelector(".updateCreator").value;
+    let updateState = document.querySelector(".updateState").value;
+    await fetch('/load', {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id: getUpdateId, updateCreator, updateState})
+    });
+  });
+
+  let delete_btn = document.querySelector(".delete_BTN");
+  delete_btn.addEventListener('click', async () => {
+    let inputDel = document.querySelector(".inputDel").value;
+    await fetch('/load', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id: inputDel})
+    });
+  });
+</script>
+</body>
+</html>

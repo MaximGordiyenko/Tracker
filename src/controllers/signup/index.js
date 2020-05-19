@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 import User from '../../models/users';
 
-router.post('/signup',(req, res, next) => {
+router.post('/signup', (req, res) => {
   const {username, email, pass, repass, role} = req.body;
   if (!role) {
     return res.status(400).send("role is not specified");
@@ -10,7 +10,6 @@ router.post('/signup',(req, res, next) => {
   if (pass !== repass) {
     return res.status(400).send("passwords dont match");
   }
-
   if (username && email && pass && repass && role) {
     const userData = {
       email,
@@ -18,19 +17,15 @@ router.post('/signup',(req, res, next) => {
       role,
       password: pass,
     };
-
-    User.create(userData, function(error, user) {
+    return User.create(userData, function (error, user) {
       if (error) {
-        return res.status(400).send("mongoDB cannot create such user");
+        return res.status(400).send(`mongoDB cannot create such user, Error: ${error}`);
       } else {
         req.session.userId = user._id;
-
         return res.redirect('/profile'); // TODO: should be implemented
       }
     });
-
   }
-
 });
 
-export { router as SignupController };
+export {router as SignupController};
