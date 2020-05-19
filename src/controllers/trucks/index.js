@@ -12,31 +12,35 @@ router.post('/', async (req, res) => {
     status: status || 'unassigned',
     type: type || 'unassigned',
   };
-
-  try {
-    const findTruck = await Truck.find({created_by: createBy, assigned_to: assignTo, type: type});
-    if (findTruck.length > 0) return res.status(409).send(`Conflict: the ${findTruck.length} document exist in DB`);
-    const createTruck = await Truck.create(truck);
-    return res.status(200).send(createTruck);
-  } catch (e) {
-    res.status(500).send(e);
+  if (createBy !== '' && assignTo !== '' && status !== '' && type !== '') {
+    try {
+      const findTruck = await Truck.find({created_by: createBy, assigned_to: assignTo, type: type});
+      if (findTruck.length > 0) return res.status(409).send(`Conflict: the ${findTruck.length} document exist in DB`);
+      const createTruck = await Truck.create(truck);
+      return res.status(200).send(createTruck);
+    } catch (e) {
+      res.status(500).send(e);
+    }
+  }else{
+    return res.send(`Insert valid field`);
   }
+
 });
 
 router.get('/', async (req, res) => {
   const {id, creator, assigner} = req.query;
   console.log(req.sessionID);
 
-  if (id === '' && creator === '' && assigner === '') {
+  if (id === '' && creator === '' && assigner === '' || id === undefined && creator === undefined && assigner === undefined) {
     try {
       const findAllTrucks = await Truck.find({});
-      return res.status(200).send(findAllTrucks);
+      return res.status(200).send({message: `Was found ${findAllTrucks.length} trucks in DB`, Trucks: findAllTrucks});
     } catch (e) {
       res.status(500).send(e);
     }
   }
 
-  if (id !== '') {
+  if (id !== '' || creator === undefined && assigner === undefined) {
     try {
       const findByID = await Truck.findById({_id: id});
       if (!findByID) return res.status(404).send({message: `Document with _id: ${id} doesn't found `});
@@ -46,7 +50,7 @@ router.get('/', async (req, res) => {
     }
   }
 
-  if (creator !== '') {
+  if (creator !== '' || id === undefined && assigner === undefined) {
     try {
       const findCreator = await Truck.find({created_by: creator});
       if (0 === findCreator.length) return res.status(404).send({message: `Document with user: ${creator} doesn't found `});
@@ -56,7 +60,7 @@ router.get('/', async (req, res) => {
     }
   }
 
-  if (assigner !== '') {
+  if (assigner !== '' || id === undefined && creator === undefined) {
     try {
       const findAssingner = await Truck.find({assigned_to: assigner});
       if (0 === findAssingner.length) return res.status(404).send({message: `Document with user: ${assigner} doesn't found `});
@@ -69,7 +73,6 @@ router.get('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
   const {id, updateCreator, updateAssigner} = req.body;
-  console.log(id, updateCreator, updateAssigner);
 
   let newData = {
     created_by: updateCreator,
@@ -89,8 +92,8 @@ router.delete('/', async (req, res) => {
   const {id} = req.body;
   try {
     const deleteByID = await Truck.findOneAndDelete({_id: id});
-    if (!deleteByID) return res.status(500).send({message: `Document with id: ${id} doesn't found `});
-    return res.status(200).send(deleteByID);
+    if (!deleteByID) return res.status(500).send({message: `Truck: ${deleteByID} was not found`});
+      return res.status(200).send({message: `Document with id: ${id} was deleted`, Truck: deleteByID});
   } catch (error) {
     return res.status(500).send(error);
   }
