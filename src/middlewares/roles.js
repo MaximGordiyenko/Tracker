@@ -1,5 +1,4 @@
-import User from '../models/users';
-
+const User = require('../models/users');
 
 const isAdmin = async (req, res, next) => {
   try {
@@ -63,4 +62,6 @@ const isCustomer = async (req, res, next) => {
   }
 };
 
-export {isCustomer, isAdmin, isDriver};
+module.exports = {
+  isCustomer, isAdmin, isDriver
+}

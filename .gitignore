@@ -4,3 +4,4 @@ coverage/
 .nvmrc
 .env
 .gitignore
+yarn.lock

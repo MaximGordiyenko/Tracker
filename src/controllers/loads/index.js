@@ -1,8 +1,6 @@
-import Truck from "../../models/trucks";
-
 const express = require('express');
 const router = express.Router();
-import Load from "../../models/loads";
+const Load = require ("../../models/loads");
 
 router.post('/', async (req, res) => {
   const {createBy, state, status, width, height, length, message, payload} = req.body;
@@ -83,9 +81,28 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/aggregate', async (req, res) => {
+  const {width, height, length} = req.query;
+  console.log(width, height, length);
+  try {
+    const aggregateDemantion = await Load.aggregate([
+      {
+        "$group": {
+          _id: "$_id",
+          width: {"$addToSet": "$dimensions.width"},
+          height: {"$addToSet": "$dimensions.height"},
+          length: {"$addToSet": "$dimensions.length"}
+        }
+      }
+    ]);
+    return res.status(200).send(aggregateDemantion);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+});
+
 router.put('/', async (req, res) => {
   const {id, updateCreator, updateState} = req.body
-  console.log("update:", id, updateCreator, updateState);
 
   let updateLoad = {
     created_by: updateCreator,
@@ -112,4 +129,4 @@ router.delete('/', async (req, res) => {
   }
 });
 
-export {router as LoadsController};
+module.exports = router;

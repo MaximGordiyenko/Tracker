@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-import User from '../../models/users';
+const User = require('../../models/users');
 
 router.get('/profile', function (req, res, next) {
   User.findById(req.session.userId)
@@ -25,4 +25,4 @@ router.get('/profile', function (req, res, next) {
     });
 });
 
-export {router as ProfileController};
+module.exports = router;

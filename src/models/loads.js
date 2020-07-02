@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require ('mongoose');
 
 const LoadSchema = new mongoose.Schema({
   created_by: {
@@ -42,4 +42,4 @@ const LoadSchema = new mongoose.Schema({
 });
 
 const Load = mongoose.model('Load', LoadSchema);
-export default Load;
+module.exports = Load;

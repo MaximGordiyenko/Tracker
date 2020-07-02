@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-import Truck from '../../models/trucks';
+const Truck = require('../../models/trucks');
 
 router.post('/', async (req, res) => {
   const {createBy, assignTo, status, type} = req.body;
@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
     } catch (e) {
       res.status(500).send(e);
     }
-  }else{
+  } else {
     return res.send(`Insert valid field`);
   }
 
@@ -71,6 +71,41 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/aggregate', async (req, res) => {
+  const {creator, assigner, status} = req.query;
+  if (creator) {
+    try {
+      const aggregateCreator = await Truck.aggregate([
+        {$match: {created_by: creator}}
+      ]);
+      return res.status(200).send(aggregateCreator);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  } else if (assigner) {
+    try {
+      const aggregateAssigner = await Truck.aggregate([
+        {$match: {assigned_to: assigner}}
+      ]);
+      return res.status(200).send(aggregateAssigner);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  } else if (status) {
+    try {
+      const aggregateStatus = await Truck.aggregate([
+        {$match: {status: status}}
+      ]);
+      return res.status(200).send(aggregateStatus);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  } else {
+    return res.status(200).send({message: "Nothing to aggregate"});
+  }
+});
+
+
 router.put('/', async (req, res) => {
   const {id, updateCreator, updateAssigner} = req.body;
 
@@ -93,10 +128,10 @@ router.delete('/', async (req, res) => {
   try {
     const deleteByID = await Truck.findOneAndDelete({_id: id});
     if (!deleteByID) return res.status(500).send({message: `Truck: ${deleteByID} was not found`});
-      return res.status(200).send({message: `Document with id: ${id} was deleted`, Truck: deleteByID});
+    return res.status(200).send({message: `Document with id: ${id} was deleted`, Truck: deleteByID});
   } catch (error) {
     return res.status(500).send(error);
   }
 });
 
-export {router as TrucksController};
+module.exports = router;

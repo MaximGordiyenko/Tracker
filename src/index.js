@@ -1,18 +1,18 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import session from 'express-session';
-import connectMongo from 'connect-mongo';
-import { ProfileController } from './controllers/profile';
-import { LogoutController } from './controllers/logout';
-import { SignupController } from './controllers/signup';
-import { LoginController } from './controllers/login';
-import { TrucksController } from './controllers/trucks';
-import { LoadsController } from './controllers/loads';
-import { isDriver, isAdmin, isCustomer } from './middlewares/roles';
-import User from './models/users';
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const session = require('express-session');
+const connectMongo = require('connect-mongo');
+const ProfileController = require('./controllers/profile');
+const LogoutController = require('./controllers/logout');
+const SignupController = require('./controllers/signup');
+const LoginController = require('./controllers/login');
+const TrucksController = require('./controllers/trucks');
+const LoadsController = require('./controllers/loads');
+const {isDriver, isAdmin, isCustomer} = require('./middlewares/roles');
+const User = require('./models/users');
 
 const app = express();
 const MongoStore = connectMongo(session);
@@ -23,7 +23,7 @@ if (envConfig.error) {
   throw envConfig.error;
 }
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
@@ -33,7 +33,7 @@ mongoose.connect(process.env.MONGO_PATH, {
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false
-}).then((result) => {
+}).then(() => {
   console.log(`MongoDB connection granted`);
 }).catch(error => console.log(`There is troubles with connecting to MongoDB ${error}`));
 

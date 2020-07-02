@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-import User from '../../models/users';
+const User = require('../../models/users');
 
 router.post('/signup', (req, res) => {
   const {username, email, pass, repass, role} = req.body;
@@ -28,4 +28,4 @@ router.post('/signup', (req, res) => {
   }
 });
 
-export {router as SignupController};
+module.exports = router;

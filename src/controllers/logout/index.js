@@ -14,4 +14,4 @@ router.get('/logout', (req,res,next) => {
   }
 });
 
-export { router as LogoutController };
+module.exports = router;
