@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const TruckSchema = new mongoose.Schema({
   creation_date: {

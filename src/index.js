@@ -11,7 +11,7 @@ const SignupController = require('./controllers/signup');
 const LoginController = require('./controllers/login');
 const TrucksController = require('./controllers/trucks');
 const LoadsController = require('./controllers/loads');
-const {isDriver, isAdmin, isCustomer} = require('./middlewares/roles');
+// const {isDriver, isAdmin, isCustomer} = require('./middlewares/roles');
 const User = require('./models/users');
 
 const app = express();
