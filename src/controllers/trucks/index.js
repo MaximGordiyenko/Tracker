@@ -24,7 +24,6 @@ router.post('/', async (req, res) => {
   } else {
     return res.send(`Insert valid field`);
   }
-
 });
 
 router.get('/', async (req, res) => {

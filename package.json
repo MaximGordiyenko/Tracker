@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Track your delivery",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon src/server.js",
     "lint": "eslint --ext .js src/ -c .eslintrc.js",
     "fix": "eslint --ext .js src/ -c .eslintrc.js --fix"
   },

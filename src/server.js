@@ -16,6 +16,8 @@ const User = require('./models/users');
 
 const app = express();
 const MongoStore = connectMongo(session);
+const database = require('./database');
+database.db();
 
 const envConfig = dotenv.config();
 if (envConfig.error) {
@@ -28,27 +30,12 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGO_PATH, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-}).then(() => {
-  console.log(`MongoDB connection granted`);
-}).catch(error => console.log(`There is troubles with connecting to MongoDB ${error}`));
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log('success connect');
-});
-
 app.use(session({
   secret: process.env.JWT_SECRET,
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
-    mongooseConnection: db,
+    mongooseConnection: mongoose.connection,
   }),
 }));
 
@@ -62,6 +49,7 @@ const roleLoggerMiddleWare = async (req, res, next) => {
   }
   next();
 };
+
 //static content
 app.use(express.static('src/view/public'));
 app.use('/trucks', roleLoggerMiddleWare, express.static('src/view/trucks'));
