@@ -6,4 +6,4 @@ COPY src /app/src/
 COPY README.md /app/
 COPY .env /app/
 EXPOSE 4000
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

@@ -7,7 +7,7 @@ if (envConfig.error) {
   throw envConfig.error;
 }
 
-const url = `mongodb://${process.env.MONGO_HOSTNAME}/${process.env.MONGO_DB}?${process.env.MONGO_PARAMS}`
+const url_local = `mongodb://${process.env.MONGO_HOSTNAME}:${process.env.MONGO_PORNMANE}/${process.env.MONGO_DB}`
 
 const options = {
   useNewUrlParser: true,
@@ -19,7 +19,7 @@ const options = {
 module.exports.db = () => {
   console.log('url of DB:', url);
   mongoose
-    .connect(url, options)
+    .connect(url_local, options)
     .then(() => {console.log(`MongoDB is connected with DB: ${process.env.MONGO_DB}`)})
     .catch(error => console.log(`There is troubles with connecting to MongoDB ${error}`));
 }

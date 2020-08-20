@@ -3,6 +3,7 @@ NodeJs app that track delivery
 
 ## How to start with Docker:
 1.1. Download and Run Docker application on Laptop.
+
 1.2. Create dockerfile use terminal's command:
 ```
 echo Dockerfile
