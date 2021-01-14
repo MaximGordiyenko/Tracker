@@ -4,6 +4,7 @@
   "description": "Track your delivery",
   "scripts": {
     "start": "node src/server.js",
+    "node": "nodemon src/server.js",
     "lint": "eslint --ext .js src/ -c .eslintrc.js",
     "fix": "eslint --ext .js src/ -c .eslintrc.js --fix"
   },

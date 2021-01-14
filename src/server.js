@@ -4,19 +4,19 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const session = require('express-session');
-const connectMongo = require('connect-mongo');
 const ProfileController = require('./controllers/profile');
 const LogoutController = require('./controllers/logout');
 const SignupController = require('./controllers/signup');
 const LoginController = require('./controllers/login');
 const TrucksController = require('./controllers/trucks');
 const LoadsController = require('./controllers/loads');
+const database = require('./database');
+const connectMongo = require('connect-mongo');
 // const {isDriver, isAdmin, isCustomer} = require('./middlewares/roles');
 const User = require('./models/users');
 
 const app = express();
 const MongoStore = connectMongo(session);
-const database = require('./database');
 database.db();
 
 const envConfig = dotenv.config();

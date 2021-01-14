@@ -1,7 +1,7 @@
 FROM node:12
 WORKDIR /app
 COPY package*.json /app/
-RUN cd /app && npm install yarn && ./node_modules/yarn/bin/yarn install
+RUN cd /app && npm install
 COPY src /app/src/
 COPY README.md /app/
 COPY .env /app/
